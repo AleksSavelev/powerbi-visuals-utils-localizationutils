@@ -79,13 +79,15 @@ jobs:
               cd "$mainFolder/$folder"
               defaultBranchName=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
               changes="$(git diff)"
-              if [[ $changes == "" ]]; then
-                echo "No changes for $repoName"
-                continue
-              fi
-              git add . && \
-                git commit -S -m "New translations" && \
-                (git push origin $BRANCH || git push --set-upstream origin $BRANCH) || echo "New pull request to $repoName wasn't created"
+              # if [[ $changes == "" ]]; then
+              #   echo "No changes for $repoName"
+              #   continue
+              # fi
+              echo $changes
+              echo $(git status)
+              # git add . && \
+              #   git commit -S -m "New translations" && \
+              #   (git push origin $BRANCH || git push --set-upstream origin $BRANCH) || echo "New pull request to $repoName wasn't created"
               # gh pr create -B $defaultBranchName -b "Auto created Pull Request with new translations" -t $PR_NAME || \
                 echo "New pull request to $repoName wasn't created"
             echo "::endgroup::"
